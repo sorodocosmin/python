@@ -57,9 +57,30 @@ def ex_3(string, substring):
     :param substring:
     :return: the number of substring in string
     """
+    if substring == "":
+        return None
 
-    count = string.count(substring)
-    return count
+    ct = 0
+
+    for i in range(len(string)):
+        if string[i] == substring[0]:
+            j_string = i
+            j_substring = 0
+            nr = 0
+            while j_string < len(string) and j_substring < len(substring):
+                if string[j_string] == substring[j_substring]:
+                    nr += 1
+                else:
+                    break
+                j_string += 1
+                j_substring += 1
+
+            if nr == len(substring):
+                ct += 1
+
+    return ct
+
+
     #  return len(string.split(substring))-1
 
 
@@ -140,7 +161,7 @@ def ex_6(number):
     """
     str_number = str(number)
     # print(str_number[-1::-1])  from end to the first char, with step -1
-    return str_number == str_number[-1:-1:-1]
+    return str_number == str_number[::-1]
 
 
 def ex_7(string):
@@ -234,6 +255,7 @@ print("-----------EX_2-----------")
 print(ex_2("ThE number of Vowels is : 7 "))
 print("-----------EX_3-----------")
 print(ex_3("hellohelloshello hello hello", "hello"))
+print(ex_3("aaaa","aaa"))
 print("-----------EX_4-----------")
 print(ex_4("upperCamelCase"))
 
