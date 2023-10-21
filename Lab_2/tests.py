@@ -250,6 +250,9 @@ class MyTestCase(unittest.TestCase):
         exp_res = [['buna'], ['ziua'], ['cosmin'], ['sunt'], ['eu']]
         self.assertEqual(True, list_1_same_list_2(exp_res, lab_2.ex_12(list_words)))
 
+        # invalid list of words
+        list_words = ["hello", "hallo", 33]
+        self.assertEqual(None, lab_2.ex_12(list_words))
 
 if __name__ == '__main__':
     unittest.main()

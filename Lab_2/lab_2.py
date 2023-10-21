@@ -319,14 +319,11 @@ def ex_11(list_tuples):
     :return:
     """
 
-    # Note_1 : the function does not return anything, but only to sort the given list of tuples
+    # Note_1 : the function does not return anything, it only sorts the given list of tuples
     # Note_2 : if a tuple doesn't have 2 string or the 3-th char of the second string,
-    # it will be put in front of those who have when sorted
+    # it will be put in front of those who have (in the final res, when sorting)
 
     list_tuples.sort(key=lambda elem: "" if (len(elem) <= 1 or len(elem[1]) < 3) else elem[1][2])
-
-
-list_tup = [("a",), ("b",), ("c",)]
 
 
 def ex_12(list_of_words: list) -> list | None:
@@ -336,8 +333,11 @@ def ex_12(list_of_words: list) -> list | None:
     :return: return a list of lists of words, grouped by rhyme.
     Two words rhyme if both of them end with the same 2 letters.
     """
+
     last_2_letters_dict = {}
     for word in list_of_words:
+        if type(word) is not str:
+            return None
         new_word = word.strip()
         if len(new_word) >= 2:
             last_letter = new_word[-2:]
