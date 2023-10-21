@@ -3,3 +3,6 @@
 
 # Ignore all files named ".idea" at any level
 **/.idea
+
+#ignore all pycache folders
+**/__pycache__/
