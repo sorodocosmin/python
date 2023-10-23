@@ -29,7 +29,7 @@ class MyTestCase(unittest.TestCase):
     def tests_ex_2(self):
         list_of_all_stuff = [-1, 0, 1, 2, 101.01, 7, 1.0234, 11, 123, 101, "23", [31, 33], 25]
         self.assertEqual([2, 7, 11, 101], lab_2.ex_2(list_of_all_stuff))
-        self.assertEqual([], [])
+        self.assertEqual([], lab_2.ex_2([]))
         self.assertEqual([], lab_2.ex_2([-1, -2, -3, -4, "1", '+13']))
 
     def tests_ex_3(self):
@@ -253,6 +253,7 @@ class MyTestCase(unittest.TestCase):
         # invalid list of words
         list_words = ["hello", "hallo", 33]
         self.assertEqual(None, lab_2.ex_12(list_words))
+
 
 if __name__ == '__main__':
     unittest.main()
