@@ -29,6 +29,7 @@ def is_prime(number: int) -> bool:
     :param number:
     :return:
     """
+    # Orice numar prim poate i scris de forma 6k +- 1
     if type(number) is not int:  # 11.0 is not a prime number
         return False
 
