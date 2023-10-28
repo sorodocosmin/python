@@ -143,6 +143,10 @@ class MyTestCase(unittest.TestCase):
         dictionary = {"key1": "anything", "key2": "salut"}
         self.assertTrue(lab_03.ex_5(rules, dictionary))
 
+        set_rules = {("key1", "", "inside", ""), ("key2", "start", "middle", "winter"), ("key3", "", "", "")}
+        dictionary = {"key1": "come inside, it's too cold out"}
+        self.assertTrue(lab_03.ex_5(set_rules, dictionary))
+
     def tests_ex_6(self):
         list_nr = []
         result = lab_03.ex_6(list_nr)
@@ -165,7 +169,6 @@ class MyTestCase(unittest.TestCase):
     def tests_ex_10(self):
         # ex given
         self.assertEqual(['a', '6', 'z', '2'], lab_03.ex_10({'start': 'a', 'b': 'a', 'a': '6', '6': 'z', 'x': '2', 'z': '2', '2': '2', 'y': 'start'}))
-
 
     def tests_ex_11(self):
         result = lab_03.ex_11()

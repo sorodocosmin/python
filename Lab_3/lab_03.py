@@ -131,7 +131,7 @@ def ex_5(set_rules: set, dictionary_to_be_checked: dict) -> bool:
     """
     set_rules is formed by tuples as follows:
     (key, prefix_value, middle_value, suffix_value)
-    key -> the key that is supposed to be found in the dictionary
+    key -> every key o the dict needs to be in the set_rules (set_rules can have more keys than the dict)
     prefix_value -> the value needs to start with the prefix
     middle_value -> the value needs to have middle_value, but not starrt with id or end
     suffix_value -> ..
@@ -140,13 +140,11 @@ def ex_5(set_rules: set, dictionary_to_be_checked: dict) -> bool:
     :return:
     """
 
-    if len(set_rules) != len(dictionary_to_be_checked):
-        return False
+    nr_keys_from_rules_found_in_dict = 0
 
     for rule in set_rules:
-        if rule[0] not in dictionary_to_be_checked:
-            return False
-        else:
+        if rule[0] in dictionary_to_be_checked:
+            nr_keys_from_rules_found_in_dict += 1
             value = dictionary_to_be_checked[rule[0]]
             if type(value) is not str:
                 return False
@@ -160,6 +158,9 @@ def ex_5(set_rules: set, dictionary_to_be_checked: dict) -> bool:
 
             if not (value.startswith(rule[1]) and value.endswith(rule[3])):
                 return False
+
+    if nr_keys_from_rules_found_in_dict != len(dictionary_to_be_checked):  # if dict contain a key that is not in set_rules
+        return False
 
     return True
 
