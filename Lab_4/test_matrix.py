@@ -116,7 +116,7 @@ class MyTestCase(unittest.TestCase):
 
         # the matrix remains the same bcs the function doesn't return
         # the same type for all the cells
-        m1.apply_function(lambda x: "2" if x == 2 else x)
+        self.assertIsNone(m1.apply_function(lambda x: "2" if x == 2 else x))
         self.assertEqual(2, m1.get_cell(0, 0))
         self.assertEqual(3, m1.get_cell(0, 1))
 

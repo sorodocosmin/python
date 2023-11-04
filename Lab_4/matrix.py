@@ -49,6 +49,12 @@ class Matrix:
             return True
 
     def get_cell(self, row, col):
+        """
+        return the first cell if row or col are invalid
+        :param row:
+        :param col:
+        :return:
+        """
         if (type(row) is not int or type(col) is not int or
                 row < 0 or row >= self.__rows or col < 0 or col >= self.__cols):
             print(" ! Invalid cell position !(it will be returned the first cell)")
@@ -104,7 +110,8 @@ class Matrix:
         """
         Apply a function on each cell of the matrix
         :param function: the function that will be applied on each cell
-        :return: won't return anything
+        :return: None if the function returns values of different types,
+        True if the function was applied successfully
         """
         new_type = type(function(self.__matrix[0][0]))
         new_matrix = []
@@ -116,7 +123,7 @@ class Matrix:
                     print(" ! Error at apply_function method !")
                     print(" ! The function should return values of the same type for all values of the matrix !")
                     print(" ! The matrix was not modified !")
-                    return
+                    return None
                 else:
                     line.append(res)
 
@@ -124,6 +131,7 @@ class Matrix:
 
         self.__type_values = new_type
         self.__matrix = new_matrix
+        return True
 
     def __mul__(self, other):
         return self.multiply(other)
