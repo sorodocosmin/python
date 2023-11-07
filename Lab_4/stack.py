@@ -6,7 +6,11 @@ class Stack:
         self.__items = []
 
     def push(self, item):
-        self.__items += [item]
+        type_item = type(item)
+        if type_item is int or type_item is float or type_item is bool or type_item is str:
+            self.__items += [item]
+        else:
+            self.__items += [copy.deepcopy(item)]
 
     def pop(self):
         """

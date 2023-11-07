@@ -6,7 +6,11 @@ class Queue:
         self.__items = []
 
     def push(self, item):
-        self.__items += [item]
+        type_item = type(item)
+        if type_item is int or type_item is float or type_item is bool or type_item is str:
+            self.__items += [item]
+        else:
+            self.__items += [copy.deepcopy(item)]
 
     def peek(self):
         """
@@ -47,3 +51,10 @@ class EmptyQueueException(Exception):
     """
     Raised when the queue is empty, and we try to pop/peek
     """
+
+q = Queue()
+li = [1, 2, 3]
+q.push(li)
+print(q.peek())
+li.append(4)
+print(q.peek())
