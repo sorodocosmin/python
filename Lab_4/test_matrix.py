@@ -33,13 +33,13 @@ class MyTestCase(unittest.TestCase):
 
     def test_set_cell_invalid(self):
         m1 = Matrix(2, 2)
-        self.assertIsNone(m1.set_cell(-1, 0, "1"))
-        self.assertIsNone(m1.set_cell("0", 1, "1"))
+        self.assertFalse(m1.set_cell(-1, 0, "1"))
+        self.assertFalse(m1.set_cell("0", 1, "1"))
 
         self.assertTrue(m1.set_cell(0, 0, "1"))
 
         # try to set a cell with a different type than the other cells
-        self.assertFalse(m1.set_cell(0, 1, 2))
+        self.assertTrue(m1.set_cell(0, 1, 2))
 
     def test_set_get(self):
         m1 = Matrix(2, 2)
@@ -116,9 +116,14 @@ class MyTestCase(unittest.TestCase):
 
         # the matrix remains the same bcs the function doesn't return
         # the same type for all the cells
-        self.assertIsNone(m1.apply_function(lambda x: "2" if x == 2 else x))
-        self.assertEqual(2, m1.get_cell(0, 0))
-        self.assertEqual(3, m1.get_cell(0, 1))
+        self.assertTrue(m1.apply_function(lambda x: x + 10))
+        self.assertEqual(12, m1.get_cell(0, 0))
+        self.assertEqual(13, m1.get_cell(0, 1))
+
+        # the matrix remains the same bcs the function will throw an exception
+        self.assertFalse(m1.apply_function(lambda x: x//0))
+        self.assertEqual(12, m1.get_cell(0, 0))
+        self.assertEqual(13, m1.get_cell(0, 1))
 
 
 if __name__ == '__main__':

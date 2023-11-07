@@ -1,5 +1,5 @@
 import unittest
-from queue import Queue
+from queue import Queue, EmptyQueueException
 
 
 class MyTestCase(unittest.TestCase):
@@ -21,7 +21,10 @@ class MyTestCase(unittest.TestCase):
 
     def test_function_peek(self):
         queue = Queue()
-        self.assertEqual(None, queue.peek())
+
+        # Ensure that peek on an empty queue raises EmptyQueueException
+        with self.assertRaises(EmptyQueueException):
+            queue.peek()
 
         queue.push("elem_1")
         queue.push("elem_2")
@@ -41,14 +44,16 @@ class MyTestCase(unittest.TestCase):
 
         list_elem = queue.peek()
         list_elem.append(4)
-        # now, the last element in the stack should be [1, 2, 3, 4]
-        self.assertEqual([1, 2, 3, 4], queue.peek())
+        # now, the last element in the stack should be [1, 2, 3]
+        self.assertEqual([1, 2, 3], queue.peek())
 
         self.assertEqual(1, queue.size())
 
     def test_function_pop(self):
         queue = Queue()
-        self.assertEqual(None, queue.pop())
+        with self.assertRaises(EmptyQueueException):
+            queue.pop()
+
         queue.push("elem_1")
         queue.push("elem_2")
         queue.push("elem_3")
@@ -60,7 +65,9 @@ class MyTestCase(unittest.TestCase):
         queue.push([1, 2, 3])
         self.assertEqual("elem_3", queue.pop())
         self.assertEqual([1, 2, 3], queue.pop())
-        self.assertEqual(None, queue.pop())
+
+        with self.assertRaises(EmptyQueueException):
+            queue.pop()
         self.assertEqual(0, queue.size())
 
 

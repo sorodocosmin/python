@@ -1,3 +1,6 @@
+import copy
+
+
 class Queue:
     def __init__(self):
         self.__items = []
@@ -8,14 +11,20 @@ class Queue:
     def peek(self):
         """
         Returns the first item from the queue without removing it
-        if the last item is a list/dict/obj of a class, the changes that you make
-        to the peeked item will be reflected in the queue also
-        :return:
+        it will return a deepcopy of that element -- very inefficient
+        :return: item if the queue is not empty
+        else raises EmptyQueueException
         """
         if len(self.__items) == 0:
-            return None
+            raise EmptyQueueException("The queue is empty!")
 
-        return self.__items[0]
+        type_elem = type(self.__items[0])
+        # return same obj for primitive types
+        if type_elem is int or type_elem is float or type_elem is bool or type_elem is str:
+            return self.__items[0]
+
+        # we can have a tuple of list -> we need deepcopy
+        return copy.deepcopy(self.__items[0])
 
     def pop(self):
         """
@@ -23,11 +32,18 @@ class Queue:
         :return:
         """
         if len(self.__items) == 0:
-            return None
+            raise EmptyQueueException("The queue is empty!")
 
         item = self.__items[0]
         del self.__items[0]
+        # no need to use deepcopy as the element is removed from the queue
         return item
 
     def size(self):
         return len(self.__items)
+
+
+class EmptyQueueException(Exception):
+    """
+    Raised when the queue is empty, and we try to pop/peek
+    """

@@ -1,5 +1,5 @@
 import unittest
-from stack import Stack
+from stack import Stack, EmptyStackException
 
 
 class MyTestCase(unittest.TestCase):
@@ -21,7 +21,9 @@ class MyTestCase(unittest.TestCase):
 
     def test_function_peek(self):
         stack = Stack()
-        self.assertEqual(None, stack.peek())
+
+        with self.assertRaises(EmptyStackException):
+            stack.peek()
 
         stack.push("elem_1")
         stack.push("elem_2")
@@ -36,14 +38,18 @@ class MyTestCase(unittest.TestCase):
         stack.push([1, 2, 3])
         list_elem = stack.peek()
         list_elem.append(4)
-        # now, the last element in the stack should be [1, 2, 3, 4]
-        self.assertEqual([1, 2, 3, 4], stack.peek())
+        # now, the last element in the stack should be [1, 2, 3]
+        # it uses deepcopy
+        self.assertEqual([1, 2, 3], stack.peek())
 
         self.assertEqual(5, stack.size())
 
     def test_function_pop(self):
         stack = Stack()
-        self.assertEqual(None, stack.pop())
+
+        with self.assertRaises(EmptyStackException):
+            stack.pop()
+
         stack.push("elem_1")
         stack.push("elem_2")
         stack.push("elem_3")
@@ -55,7 +61,10 @@ class MyTestCase(unittest.TestCase):
         stack.push([1, 2, 3])
         self.assertEqual([1, 2, 3], stack.pop())
         self.assertEqual("elem_1", stack.pop())
-        self.assertEqual(None, stack.pop())
+
+        with self.assertRaises(EmptyStackException):
+            stack.pop()
+
         self.assertEqual(0, stack.size())
 
 
