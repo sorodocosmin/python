@@ -51,10 +51,3 @@ class EmptyQueueException(Exception):
     """
     Raised when the queue is empty, and we try to pop/peek
     """
-
-q = Queue()
-li = [1, 2, 3]
-q.push(li)
-print(q.peek())
-li.append(4)
-print(q.peek())
