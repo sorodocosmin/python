@@ -1,7 +1,7 @@
 class Matrix:
     """
     A class used to represent a matrix
-    All cells in this matrix need to be of the same type (even after applying the apply_function method)
+    cells from the matrix can have diff types
     """
 
     def __init__(self, rows, cols):
@@ -19,13 +19,11 @@ class Matrix:
         self.__rows = rows
         self.__cols = cols
         self.__matrix = [[0 for _ in range(cols)] for __ in range(rows)]
-        self.__type_values = None
 
     def set_cell(self, row, col, value):
         """
-        return None if row or col are invalid
+        return False if row or col are invalid
         returns True if the cell was set successfully
-        return False if it tries to set a cell which has a different type than the other cells
         :param row:
         :param col:
         :param value:
@@ -34,19 +32,10 @@ class Matrix:
         if (type(row) is not int or type(col) is not int or
                 row < 0 or row >= self.__rows or col < 0 or col >= self.__cols):
             print(" ! Invalid cell position !")
-            return None
-
-        if self.__type_values is None:
-            self.__type_values = type(value)
-            self.__matrix[row][col] = value
-            return True
-
-        elif self.__type_values != type(value):
-            print("!All cells in a matrix should be of the same type!")
             return False
-        else:
-            self.__matrix[row][col] = value
-            return True
+
+        self.__matrix[row][col] = value
+        return True
 
     def get_cell(self, row, col):
         """
@@ -91,16 +80,27 @@ class Matrix:
         return transpose_matrix
 
     def multiply(self, other):
+        """
+
+        :param other:
+        :return:  None if the matrix sizes are invalid
+        """
         if self.__cols != other.get_nr_rows():
             print(" ! Invalid matrix size for multiplication !")
-            return
+            return None
 
         matrix_result = Matrix(self.__rows, other.get_nr_cols())
         for i in range(self.__rows):
             for j in range(other.get_nr_cols()):
                 sum_of_prod = 0
                 for k in range(self.__cols):
-                    sum_of_prod += self.__matrix[i][k] * other.get_cell(k, j)
+                    try:
+                        sum_of_prod += self.__matrix[i][k] * other.get_cell(k, j)
+                    except Exception as e:
+                        print(" ! Error at multiply method !")
+                        print(" ! The matrix was not modified !")
+                        print(e)
+                        return self
 
                 matrix_result.set_cell(i, j, sum_of_prod)
 
@@ -113,23 +113,22 @@ class Matrix:
         :return: None if the function returns values of different types,
         True if the function was applied successfully
         """
-        new_type = type(function(self.__matrix[0][0]))
         new_matrix = []
         for i in range(self.__rows):
             line = []
             for j in range(self.__cols):
-                res = function(self.__matrix[i][j])
-                if type(res) != new_type:
+                try:
+                    res = function(self.__matrix[i][j])
+                except Exception as e:
                     print(" ! Error at apply_function method !")
-                    print(" ! The function should return values of the same type for all values of the matrix !")
                     print(" ! The matrix was not modified !")
-                    return None
-                else:
-                    line.append(res)
+                    print(e)
+                    return False
+
+                line.append(res)
 
             new_matrix.append(line)
 
-        self.__type_values = new_type
         self.__matrix = new_matrix
         return True
 
