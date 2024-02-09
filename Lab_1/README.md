@@ -1,5 +1,4 @@
-<main>
-<h1 id="lab-2"><a class="header" href="#lab-2">Lab 2</a></h1>
+## Requirements
 <ol>
 <li>Write a function to return a list of the first n numbers in the Fibonacci string.</li>
 <li>Write a function that receives a list of numbers and returns a list of the prime numbers found in it.</li>
@@ -46,5 +45,3 @@ Note: If input lists do not have the same number of items, missing items will be
 <strong>Example</strong>:
 group_by_rhyme(['ana', 'banana', 'carte', 'arme', 'parte']) will return [['ana', 'banana'], ['carte', 'parte'], ['arme']] </li>
 </ol>
-
-</main>
